@@ -1,11 +1,12 @@
 // The provided course information.
-const CourseInfo = {
+
+export const CourseInfo = {
     id: 451,
     name: "Introduction to JavaScript",
 };
 
 // The provided assignment group.
-const AssignmentGroup = {
+export const AssignmentGroup = {
     id: 12345,
     name: "Fundamentals of JavaScript",
     course_id: 451,
@@ -163,7 +164,7 @@ function getLearnerData(course, curriculum, submissions, targetDate = new Date) 
 
 const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
 
-console.log(result);
+// console.log(result);
 
 const resultGiven = [
     {
@@ -179,4 +180,4 @@ const resultGiven = [
         2: 0.833, // late: (140 - 15) / 150
     },
 ];
-console.log(resultGiven);
+// console.log(resultGiven);
