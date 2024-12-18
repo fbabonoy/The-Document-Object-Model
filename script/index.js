@@ -1,4 +1,4 @@
-import { CourseInfo, AssignmentGroup } from "./data.js";
+import { CourseInfo, AssignmentGroup, result } from "./data.js";
 
 let title = document.getElementById("title")
 title.style.textAlign = "center"
@@ -38,7 +38,7 @@ function createTitleRow(dataPerRow) {
     const divRow = document.createElement("div")
     for (let cell in dataPerRow) {        
         const listItem = document.createElement("p")
-        listItem.textContent = cell
+        listItem.textContent = cell.replace("_", " ")
         divRow.appendChild(listItem)
     }
     return divRow
@@ -56,3 +56,24 @@ function createDataRow(dataPerRow) {
 
 chapter.nextElementSibling.appendChild(assignmentTableFragment)
 
+// get the width when the window loads
+window.addEventListener("load", resizeTable)
+
+// create a listener to the window with do that it rearenget if the screen changes
+window.addEventListener("resize",  resizeTable)
+
+function resizeTable() {    
+    let rowCell = document.querySelectorAll(".dataCell > p")
+    rowCell.forEach((pTag) => {        
+        pTag.style.width = `${window.innerWidth / 5}px`
+    })
+    
+}
+
+// display input that will take the date
+console.log(result);
+
+// check for validation if the input is not correct
+// add a submit listener so that it changes the table display below
+
+//create a table do display the report

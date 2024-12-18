@@ -26,10 +26,17 @@ export const AssignmentGroup = {
         },
         {
             id: 3,
+            name: "Write a Class",
+            due_at: "2024-11-15",
+            points_possible: 200,
+        },
+        {
+            id: 4,
             name: "Code the World",
             due_at: "3156-11-15",
             points_possible: 500,
         },
+        
     ],
 };
 
@@ -162,7 +169,7 @@ function getLearnerData(course, curriculum, submissions, targetDate = new Date) 
     return studentsReports
 }
 
-const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
+export const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
 
 // console.log(result);
 
