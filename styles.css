@@ -16,5 +16,21 @@ body {
 }
 
 .form {
-  padding-block: 100px;
+  padding-block: 70px;
+}
+
+.selectedSearch {
+  background-color: rgba(3, 96, 68, 0.765);
+  color: white;
+
+}
+
+.optBnt {
+  width: "300px";
+  padding-inline: 20px;
+  /* padding-block: 10px; */
+  text-align: center;
+  margin-inline: 5px;
+  border: 1px solid gray;
+  border-radius: 20px;
 }
