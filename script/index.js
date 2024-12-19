@@ -33,6 +33,10 @@ AssignmentGroup.assignments.forEach((assignment) => {
     assignmentTableFragment.appendChild(row);
 })
 
+function createTable() {
+    
+}
+
 // console.log(assignmentTableFragment)
 function createTitleRow(dataPerRow) {
     const divRow = document.createElement("div");
@@ -113,6 +117,15 @@ function toggleButtons(e) {
     checked = e.target.textContent
     console.log(checked);
 
+    if (checked !== "Student Name") {
+        studentName.disabled = true
+    } else {
+        studentName.disabled = false
+
+    }
+        // e.target.disabled
+        // console.log(e.target.value)
+
 
 }
 
@@ -121,10 +134,17 @@ searchStudent.addEventListener("click", toggleButtons)
 
 
 
-// crete an input for searching the student
+// TODO: crete an input for searching the student
 let studentName = document.createElement("input");
+studentName.disabled = true
+studentName.placeholder = "Student Name"
+studentName.addEventListener("change", (e) => {
 
+})
+
+//give the data a dateof submittion and loook back
 let dateInput = document.createElement("input");
+
 dateInput.type = "date";
 let currentDate = new Date();
 dateInput.value = currentDate.toISOString().substring(0, 10);
@@ -134,7 +154,7 @@ submit.textContent = "submit";
 submit.addEventListener("click", (e) => {
     e.preventDefault();
     let result2 = getDate(dateInput.value);
-    console.log(dateInput.value);
+    // console.log(dateInput.value);
     console.log(result2);
 
 })
