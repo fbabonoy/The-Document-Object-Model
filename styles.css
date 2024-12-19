@@ -15,7 +15,6 @@ body {
   border-top: none;
 }
 
-.dataCell > p {
-  /* width: 200px; */
-  /* padding: 20px; */
+.form {
+  padding-block: 100px;
 }

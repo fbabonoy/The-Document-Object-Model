@@ -1,4 +1,4 @@
-import { CourseInfo, AssignmentGroup, result } from "./data.js";
+import { CourseInfo, AssignmentGroup, result, getDate } from "./data.js";
 
 let title = document.getElementById("title")
 title.style.textAlign = "center"
@@ -71,7 +71,33 @@ function resizeTable() {
 }
 
 // display input that will take the date
-console.log(result);
+let classCoriculum = document.getElementById("app")
+let searchForm = document.createElement("form")
+searchForm.id = "table"
+searchForm.classList.add("form")
+
+let dateInput = document.createElement("input")
+dateInput.type = "date"
+dateInput.value = "2024-12-5"
+
+let submit = document.createElement("button")
+submit.textContent = "submit"
+submit.addEventListener("click", (e) => {
+    e.preventDefault()
+    let result2 = getDate(dateInput.value)
+    console.log(dateInput.value)
+    console.log(result2);
+
+})
+
+
+// searchForm.style.backgroundColor = "red"
+searchForm.appendChild(dateInput)
+searchForm.appendChild(submit)
+
+classCoriculum.appendChild(searchForm)
+
+// console.log(result);
 
 // check for validation if the input is not correct
 // add a submit listener so that it changes the table display below

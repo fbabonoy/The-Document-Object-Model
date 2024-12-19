@@ -36,7 +36,7 @@ export const AssignmentGroup = {
             due_at: "3156-11-15",
             points_possible: 500,
         },
-        
+
     ],
 };
 
@@ -49,6 +49,7 @@ function getAssignmentFor(curriculum, targetDate) {
             return true
         }
     })
+    // console.log([dates, assignmentData])
     return [dates, assignmentData]
 }
 
@@ -58,7 +59,7 @@ function getAssignmentScoresFor(dates) {
         object[`${dates[cell].id}`] = dates[cell].points_possible
     }
     return object
-} 
+}
 
 
 // The provided learner submission data.
@@ -85,7 +86,7 @@ const LearnerSubmissions = [
         assignment_id: 3,
         submission: {
             submitted_at: "2023-01-25",
-            score: 400,
+            score: 150,
         },
     },
     {
@@ -103,21 +104,85 @@ const LearnerSubmissions = [
             submitted_at: "2023-03-07",
             score: 140,
         },
+
     },
+    {
+        learner_id: 132,
+        assignment_id: 3,
+        submission: {
+            submitted_at: "2023-01-25",
+            score: 170,
+        },
+    },
+    {
+        learner_id: 235,
+        assignment_id: 1,
+        submission: {
+            submitted_at: "2023-01-24",
+            score: 45,
+        },
+    },
+    {
+        learner_id: 235,
+        assignment_id: 2,
+        submission: {
+            submitted_at: "2023-03-07",
+            score: 100,
+        },
+
+    },
+    {
+        learner_id: 235,
+        assignment_id: 3,
+        submission: {
+            submitted_at: "2023-01-25",
+            score: 50,
+        },
+    },
+    {
+        learner_id: 13,
+        assignment_id: 1,
+        submission: {
+            submitted_at: "2023-01-24",
+            score: 3,
+        },
+    },
+    {
+        learner_id: 13,
+        assignment_id: 2,
+        submission: {
+            submitted_at: "2023-03-07",
+            score: 100,
+        },
+
+    },
+    {
+        learner_id: 13,
+        assignment_id: 3,
+        submission: {
+            submitted_at: "2023-01-25",
+            score: 190,
+        },
+    },
+
 ];
 
 function generateStudentsReports(assignments, list, dueDates) {
     let studentsArr = []
-    let student = {}
+    let student = {id: list[0].learner_id}
+    for (let i in dueDates){
+        student[Number(i) + 1] = 0
+    }
     let avg = 0
     let totalPossiblePoints = 0
+    
 
-    for (let cell of list) {    
+    for (let cell of list) {
 
         let assignmentScore = assignments[cell.assignment_id]
-        
+
         if (assignmentScore) {
-            
+
             let submissionDate = new Date(cell.submission.submitted_at)
             let penalty = submissionDate > dueDates[cell.assignment_id - 1] ? 15 : 0
             let cellAvg = (cell.submission.score - penalty) / assignmentScore
@@ -126,20 +191,32 @@ function generateStudentsReports(assignments, list, dueDates) {
             avg += cell.submission.score - penalty
             totalPossiblePoints += assignmentScore
 
-            if (student["id"] === cell.learner_id) {
-                student[`${cell.assignment_id}`] = cellAvg
-            } else {
+            // console.log(list[list.length-1]);
+            
+            if (student["id"] === cell.learner_id ) {
                 student["id"] = cell.learner_id
                 student[`${cell.assignment_id}`] = cellAvg
-                continue
-            }
+                if (cell !== list[list.length-1]) {
+                    continue
 
+                }
+            } 
+            
             student["avg"] = Number((avg / totalPossiblePoints).toFixed(3))
             studentsArr.push(student)
 
             student = {}
             avg = 0
             totalPossiblePoints = 0
+            student["id"] = cell.learner_id
+            for (let i in dueDates){
+              
+                student[Number(i) + 1] = 0
+            }
+            // console.log(cellAvg);
+            
+            student[`${cell.assignment_id}`] = cellAvg
+
         }
 
     }
@@ -149,16 +226,17 @@ function generateStudentsReports(assignments, list, dueDates) {
 
 }
 
-function getLearnerData(course, curriculum, submissions, targetDate = new Date) {
+function getLearnerData(course, curriculum, submissions, targetDate) {
     // here, we would process this data to achieve the desired result.
     let studentsReports
 
     try {
         if (course.id === curriculum.course_id) {
             let [dueDates, assignmentData] = getAssignmentFor(curriculum, targetDate)
+
             let assignmentScores = getAssignmentScoresFor(assignmentData)
             studentsReports = generateStudentsReports(assignmentScores, submissions, dueDates);
-            
+
         } else {
             throw new Error("no data found")
         }
@@ -169,9 +247,12 @@ function getLearnerData(course, curriculum, submissions, targetDate = new Date) 
     return studentsReports
 }
 
-export const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
+export function getDate(date) {
+    return getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions, new Date(date))
+}
+export const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions, new Date);
 
-// console.log(result);
+console.log(result);
 
 const resultGiven = [
     {
