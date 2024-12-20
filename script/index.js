@@ -1,4 +1,4 @@
-import { CourseInfo, AssignmentGroup, result, getDate } from "./data.js";
+import { CourseInfo, AssignmentGroup, getDate } from "./data.js";
 
 let title = document.getElementById("title");
 title.style.textAlign = "center";
@@ -31,7 +31,6 @@ function createTable(data) {
     
         let row = createDataRow(assignment);
         row.classList.add("dataCell");
-        // console.log(screen);
     
     
         assignmentTableFragment.appendChild(row);
@@ -80,8 +79,7 @@ function resizeTable() {
     })
 
     let studetRow = document.querySelectorAll(".studentTable p");
-    // console.log(rowCell)
-    // console.log(studetRow)
+
     studetRow.forEach((pTag) => {
         pTag.style.width = `${window.innerWidth / 7}px`;
     })
@@ -177,7 +175,6 @@ submit.addEventListener("click", (e) => {
 
         })
     }
-    
 
     table.innerHTML = ""
     titleDiv = true
