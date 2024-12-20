@@ -38,7 +38,6 @@ function createTable(data) {
     return assignmentTableFragment
 }
 
-// console.log(assignmentTableFragment)
 function createTitleRow(dataPerRow) {
     const divRow = document.createElement("div");
     for (let cell in dataPerRow) {
@@ -108,9 +107,10 @@ searchStudent.style.height = "20px"
 
 checkButtons.appendChild(searchAll);
 checkButtons.appendChild(searchStudent);
-let checked = searchAll.textContent
 
+let checked = searchAll.textContent
 searchAll.addEventListener("click", toggleButtons)
+searchStudent.addEventListener("click", toggleButtons)
 
 function toggleButtons(e) {
     e.preventDefault();
@@ -135,15 +135,12 @@ function toggleButtons(e) {
 
 }
 
-searchStudent.addEventListener("click", toggleButtons)
-
-
-
-
-// TODO: crete an input for searching the student
+// create an input for searching the student
 let studentID = document.createElement("input");
 studentID.disabled = true
 studentID.placeholder = "Student ID"
+
+// TODO: check for validation if the input is not correct
 
 studentID.addEventListener("change", (e) => {
 
@@ -161,6 +158,8 @@ submit.textContent = "submit";
 let table = document.createElement("div")
 table.classList.add("studentTable")
 
+// add a submit listener so that it changes the table display below
+
 submit.addEventListener("click", (e) => {
     e.preventDefault();
 
@@ -176,6 +175,7 @@ submit.addEventListener("click", (e) => {
         })
     }
 
+    //create a table do display the report
     table.innerHTML = ""
     titleDiv = true
     let studentTable = createTable(result2)
@@ -192,10 +192,3 @@ searchForm.appendChild(studentID);
 searchForm.appendChild(dateInput);
 searchForm.appendChild(submit);
 classCoriculum.appendChild(searchForm);
-
-// console.log(result);
-
-// check for validation if the input is not correct
-// add a submit listener so that it changes the table display below
-
-//create a table do display the report
