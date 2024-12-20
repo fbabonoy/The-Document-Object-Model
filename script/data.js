@@ -77,7 +77,7 @@ const LearnerSubmissions = [
         assignment_id: 2,
         submission: {
             submitted_at: "2023-02-12",
-            score: 150,
+            score: 149,
         },
     },
     {
@@ -87,6 +87,15 @@ const LearnerSubmissions = [
         submission: {
             submitted_at: "2023-01-25",
             score: 150,
+        },
+    },
+    {
+
+        learner_id: 125,
+        assignment_id: 4,
+        submission: {
+            submitted_at: "2023-01-25",
+            score: 450,
         },
     },
     {
@@ -252,7 +261,7 @@ export function getDate(date) {
 }
 export const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions, new Date);
 
-console.log(result);
+// console.log(result);
 
 const resultGiven = [
     {

@@ -10,39 +10,46 @@ chapter.style.textAlign = "center";
 
 
 
-let assignmentTableFragment = document.createDocumentFragment();
 let titleDiv = true;
 
-AssignmentGroup.assignments.forEach((assignment) => {
-    //create div for row
-    if (titleDiv) {
-        let titleRow = createTitleRow(assignment);
-        titleRow.classList.add("dataCell");
-        titleRow.style.borderTop = "1px solid black";
+let assignmentTable = createTable(AssignmentGroup.assignments)
 
-        assignmentTableFragment.appendChild(titleRow);
-        titleDiv = false;
+function createTable(data) {
+    let assignmentTableFragment = document.createDocumentFragment();
 
-    }
-
-    let row = createDataRow(assignment);
-    row.classList.add("dataCell");
-    // console.log(screen);
-
-
-    assignmentTableFragment.appendChild(row);
-})
-
-function createTable() {
+    data.forEach((assignment) => {
+        //create div for row
+        if (titleDiv) {
+            let titleRow = createTitleRow(assignment);
+            titleRow.classList.add("dataCell");
+            titleRow.style.borderTop = "1px solid black";
     
+            assignmentTableFragment.appendChild(titleRow);
+            titleDiv = false;
+    
+        }
+    
+        let row = createDataRow(assignment);
+        row.classList.add("dataCell");
+        // console.log(screen);
+    
+    
+        assignmentTableFragment.appendChild(row);
+    })
+    return assignmentTableFragment
 }
 
 // console.log(assignmentTableFragment)
 function createTitleRow(dataPerRow) {
     const divRow = document.createElement("div");
     for (let cell in dataPerRow) {
+        let assign = ""
         const listItem = document.createElement("p");
-        listItem.textContent = cell.replace("_", " ");
+        if (Number(cell)) {
+            assign = "assignment "
+        }
+        listItem.textContent = assign + cell.replace("_", " ");
+
         divRow.appendChild(listItem);
     }
     return divRow
@@ -58,7 +65,7 @@ function createDataRow(dataPerRow) {
     return divRow;
 }
 
-chapter.nextElementSibling.appendChild(assignmentTableFragment);
+chapter.nextElementSibling.appendChild(assignmentTable);
 
 // get the width when the window loads
 window.addEventListener("load", resizeTable);
@@ -72,10 +79,16 @@ function resizeTable() {
         pTag.style.width = `${window.innerWidth / 5}px`;
     })
 
+    let studetRow = document.querySelectorAll(".studentTable p");
+    // console.log(rowCell)
+    // console.log(studetRow)
+    studetRow.forEach((pTag) => {
+        pTag.style.width = `${window.innerWidth / 7}px`;
+    })
+
 }
 
 // display input that will take the date
-let classCoriculum = document.getElementById("app");
 let searchForm = document.createElement("form");
 searchForm.id = "table";
 searchForm.classList.add("form");
@@ -91,7 +104,7 @@ searchAll.classList.add("optBnt")
 searchAll.style.height = "20px"
 
 let searchStudent = document.createElement("button");
-searchStudent.textContent = "Student Name"
+searchStudent.textContent = "Student ID"
 searchStudent.classList.add("optBnt")
 searchStudent.style.height = "20px"
 
@@ -104,6 +117,7 @@ searchAll.addEventListener("click", toggleButtons)
 function toggleButtons(e) {
     e.preventDefault();
     let button
+
     if (e.target.nextElementSibling) {
         button = e.target.nextElementSibling
     } else {
@@ -111,21 +125,15 @@ function toggleButtons(e) {
     }
 
     e.target.classList.add("selectedSearch")
-
     button.classList.remove("selectedSearch")
-
     checked = e.target.textContent
-    console.log(checked);
 
-    if (checked !== "Student Name") {
-        studentName.disabled = true
+    if (checked !== "Student ID") {
+        studentID.disabled = true
     } else {
-        studentName.disabled = false
+        studentID.disabled = false
 
     }
-        // e.target.disabled
-        // console.log(e.target.value)
-
 
 }
 
@@ -135,37 +143,57 @@ searchStudent.addEventListener("click", toggleButtons)
 
 
 // TODO: crete an input for searching the student
-let studentName = document.createElement("input");
-studentName.disabled = true
-studentName.placeholder = "Student Name"
-studentName.addEventListener("change", (e) => {
+let studentID = document.createElement("input");
+studentID.disabled = true
+studentID.placeholder = "Student ID"
+
+studentID.addEventListener("change", (e) => {
 
 })
 
 //give the data a dateof submittion and loook back
 let dateInput = document.createElement("input");
-
 dateInput.type = "date";
 let currentDate = new Date();
 dateInput.value = currentDate.toISOString().substring(0, 10);
 
 let submit = document.createElement("button");
 submit.textContent = "submit";
+
+let table = document.createElement("div")
+table.classList.add("studentTable")
+
 submit.addEventListener("click", (e) => {
     e.preventDefault();
+
     let result2 = getDate(dateInput.value);
-    // console.log(dateInput.value);
-    console.log(result2);
+
+    if (studentID.value) {
+        result2 = result2.filter((e) => {
+            if (e.id == studentID.value) {
+                return true
+            }
+            return false
+
+        })
+    }
+    
+
+    table.innerHTML = ""
+    titleDiv = true
+    let studentTable = createTable(result2)
+    table.appendChild(studentTable)
+    
+    classCoriculum.appendChild(table)
+    resizeTable()
 
 })
 
 
-// searchForm.style.backgroundColor = "red"
 searchForm.appendChild(checkButtons);
-searchForm.appendChild(studentName);
+searchForm.appendChild(studentID);
 searchForm.appendChild(dateInput);
 searchForm.appendChild(submit);
-
 classCoriculum.appendChild(searchForm);
 
 // console.log(result);
