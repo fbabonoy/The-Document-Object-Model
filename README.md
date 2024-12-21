@@ -30,6 +30,7 @@ This application generates a dynamic report table for student assignments. It al
 - `window.load`: Resizes the table on page load.
 - `window.resize`: Resizes the table on window resize.
 - `submit.click`: Filters and displays the report based on user input.
+- `input`: get input on every key press
 
 ### Inputs and Buttons
 - **Search All Students**: Displays data for all students.
@@ -38,9 +39,7 @@ This application generates a dynamic report table for student assignments. It al
 - **Submit Button**: Generates the filtered report table.
 
 ## Known Issues
-- Input validation for Student ID is not implemented yet.
 - Additional styling improvements can be made for better readability.
 
 ## Future Improvements
-- Add input validation for Student ID.
 - Add sorting and export options for the table.

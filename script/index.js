@@ -141,14 +141,14 @@ let studentID = document.createElement("input");
 studentID.disabled = true
 studentID.placeholder = "Student ID"
 
-// TODO: check for validation if the input is not correct
+// check for validation if the input is not correct
 
 studentID.addEventListener("input", (e) => {
     console.log(e.target.value);
     let inputValue = e.target.value
-    if (!/^\d*$/.test(inputValue)) { // Regular expression for numbers only
+    if (!/^\d*$/.test(inputValue)) {
         alert("Only numbers are allowed!");
-        e.target.value = e.target.value.slice(-1); // Remove non-numeric characters
+        e.target.value = e.target.value.slice(0,-1);
     }
 })
 
