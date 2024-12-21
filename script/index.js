@@ -14,6 +14,7 @@ let titleDiv = true;
 
 let assignmentTable = createTable(AssignmentGroup.assignments)
 
+// reformat the table so that i can reuse it on the student report
 function createTable(data) {
     let assignmentTableFragment = document.createDocumentFragment();
 
@@ -146,7 +147,7 @@ studentID.addEventListener("change", (e) => {
 
 })
 
-//give the data a dateof submittion and loook back
+//give the data a date of submittion and loook back
 let dateInput = document.createElement("input");
 dateInput.type = "date";
 let currentDate = new Date();
