@@ -143,8 +143,13 @@ studentID.placeholder = "Student ID"
 
 // TODO: check for validation if the input is not correct
 
-studentID.addEventListener("change", (e) => {
-
+studentID.addEventListener("input", (e) => {
+    console.log(e.target.value);
+    let inputValue = e.target.value
+    if (!/^\d*$/.test(inputValue)) { // Regular expression for numbers only
+        alert("Only numbers are allowed!");
+        e.target.value = e.target.value.slice(-1); // Remove non-numeric characters
+    }
 })
 
 //give the data a date of submittion and loook back
